@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unbank.db.mybatis.client.SqlAdapterMapper">
+	<select id="selectWebNames" parameterType="com.unbank.db.mybatis.vo.SqlAdapter"
+		resultType="String">
+		${sql}
+	</select>
+	<select id="readWebNameNum" parameterType="com.unbank.db.mybatis.vo.SqlAdapter"
+		resultType="java.util.Map">
+		${sql}
+	</select>
+	<select id="readSectionByWebName" parameterType="com.unbank.db.mybatis.vo.SqlAdapter"
+		resultType="java.util.Map">
+		${sql}
+	</select>
+	<select id="conuntOfNum" parameterType="com.unbank.db.mybatis.vo.SqlAdapter"
+		resultType="Integer">
+		${sql}
+	</select>
+
+</mapper>

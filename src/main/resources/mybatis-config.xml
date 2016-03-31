@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration  
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+ 		<typeAlias alias="website" type="com.unbank.db.mybatis.dao.website.Website" />
+ 		<typeAlias alias="wordResource" type="com.unbank.db.mybatis.dao.wordresource.WordResource" />
+	</typeAliases>
+
+</configuration>

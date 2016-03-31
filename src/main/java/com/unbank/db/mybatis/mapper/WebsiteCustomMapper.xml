@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unbank.db.mybatis.client.WebsiteCustomMapper">
+
+ <resultMap id="BaseResultMap" type="com.unbank.db.mybatis.vo.Website">
+    <id column="website_id" jdbcType="INTEGER" property="websiteId" />
+    <result column="istask" jdbcType="INTEGER" property="istask" />
+    <result column="rank" jdbcType="INTEGER" property="rank" />
+    <result column="url_home" jdbcType="VARCHAR" property="urlHome" />
+    <result column="web_name" jdbcType="VARCHAR" property="webName" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="url_second" jdbcType="VARCHAR" property="urlSecond" />
+    <result column="section_name" jdbcType="VARCHAR" property="sectionName" />
+    <result column="url_third" jdbcType="VARCHAR" property="urlThird" />
+    <result column="url_rule" jdbcType="VARCHAR" property="urlRule" />
+    <result column="reg_datetime" jdbcType="VARCHAR" property="regDatetime" />
+    <result column="msg" jdbcType="VARCHAR" property="msg" />
+    <result column="crawl_rule" jdbcType="CHAR" property="crawlRule" />
+    <result column="c_id" jdbcType="INTEGER" property="cId" />
+    <result column="c_name" jdbcType="VARCHAR" property="cName" />
+    <result column="c_date" jdbcType="TIMESTAMP" property="cDate" />
+    <result column="c_ip" jdbcType="INTEGER" property="cIp" />
+    <result column="isOrder" jdbcType="INTEGER" property="isorder" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List">
+    website_id, istask, rank, url_home, web_name, status, url, url_second, section_name, 
+    url_third, url_rule, reg_datetime, msg, crawl_rule, c_id, c_name, c_date, c_ip, isOrder
+  </sql>
+  
+    <select id="getNoFetchWebsites" parameterType="Map" resultMap="BaseResultMap">  
+    SELECT 
+ 	<include refid="Base_Column_List" />
+ 	FROM ptf_website   
+    <where>  
+        website_id not in (
+        	select distinct website_id from ptf_day_num_web
+       			 <if test="startDate!= null and endDate!= null">
+       			 	 where crawl_time between 	#{startDate} and #{endDate}
+       			 </if>
+        )
+    </where>  
+    order by website_id desc   
+      <if test="limitStart != null and limitStart&gt;=0">
+      limit #{limitStart} , #{limitEnd}
+    </if>
+    
+  </select> 
+  
+   <select id="getNoFetchCount" parameterType="Map" resultType="int">  
+    SELECT 
+ 	count(website_id)
+ 	FROM ptf_website   
+    <where>
+        website_id not in (
+        	select distinct website_id from ptf_day_num_web 	
+        	 <if test="startDate!= null and endDate!= null">
+       			 	 where crawl_time between 	#{startDate} and #{endDate}
+       		 </if>
+        )
+    </where>
+  </select> 
+  
+</mapper>
